@@ -1,0 +1,27 @@
+@import 'variables';
+@import 'mixins';
+
+
+.letters {
+
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    width: 30%;
+    margin-top: 50px;
+}
+
+.missed-letter {
+
+    border: 1px solid black;
+    min-height: 30px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.letter-box {
+
+    margin: 5px;
+    background-color: grey;
+}
+

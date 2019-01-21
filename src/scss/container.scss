@@ -1,0 +1,36 @@
+@import 'variables';
+@import 'mixins';
+
+
+.container {
+
+    
+    min-height: 700px;
+    background-color: #80ced6;
+    background-image: linear-gradient( #d5f4e6, #80ced6, #007bff);
+    padding: 30px;
+    width:100%;
+    @media (min-width: $small-media) {
+
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    @media (min-width: $medium-media) {
+
+        max-width: 1000px;
+        padding:30px;
+    }
+
+}
+
+
+.wrapper {
+
+    display: flex;
+    min-height: 500px;
+   
+}
+
+
+*{margin:0; box-sizing: border-box;}
