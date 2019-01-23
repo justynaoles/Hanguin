@@ -13,10 +13,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const iceberg = document.querySelectorAll('.ice');
         const quack = new Audio('src/audio/quack.wav');
         let gameOver = document.createElement('div');
-        gameOver.classList.add('game-over');
-        gameOver.innerHTML="<div>Przegrałeś</div>";
+        gameOver.classList.add('end-game');
+        gameOver.innerHTML=" <div class='end-box'><div class='end-box-wrapper'><img src='src/img/gameover.PNG'><div class='end-box-play'><h4>You melt iceberg!</h4><button class='btn'>Play again</button></div></div><div class='water'></div></div>";
+        let gameWin = document.createElement('div');
+        gameWin.classList.add('end-game');
+        gameWin.innerHTML= "<div class='end-box'><div class='end-box-wrapper'><img src='src/img/win.PNG'><div class='end-box-play'><h4>You saved cute pinguin!</h4><button class='btn'>Play again</button></div></div></div></div>"
         const container = document.querySelector('.container');
-        
+            
         
         console.log(word);
         
@@ -71,7 +74,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         
         function guess(e) {
 
-          
+          resetAnimation();
+        //   alert('klik');
 
             let key = e.keyCode;
             let keyChart = String.fromCharCode(key).toUpperCase();
@@ -120,15 +124,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         
             if (hiddenWord==word) {
-        
+
+           
                 console.log('victory');
                 document.removeEventListener('keypress', guess);
+                document.body.insertBefore(gameWin,container);
+
+                setTimeout(function(){ 
+                        
+                    document.querySelector('.left-hand').style.animation='rotation-left-hand .5s infinite';
+                    document.querySelector('.right-hand').style.animation='rotation-right-hand .5s infinite';
+                
+                
+                }, 100);
+              
+
+                document.querySelector('.btn').addEventListener('click', refresh);
+
             }
         
             if (missedChances > iceberg.length -1 ) {
                 console.log('przegrales');
                 document.removeEventListener('keypress', guess);
                 document.body.insertBefore(gameOver,container);
+                document.querySelector('.btn').addEventListener('click', refresh);
             }
         
         }
@@ -141,11 +160,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if(array.indexOf(item) < 0) {
 
                     array.push(item);
-                    quack.play();
-                    document.querySelector('.left-hand').style.animation='rotation-left-hand .5s';
-                    document.querySelector('.right-hand').style.animation='rotation-right-hand .5s';
 
-                    setTimeout(function(){ resetAnimation(); }, 500);
+                    setTimeout(function(){ 
+                        
+                        document.querySelector('.left-hand').style.animation='rotation-left-hand .5s';
+                        document.querySelector('.right-hand').style.animation='rotation-right-hand .5s';
+                        quack.play();
+                    
+                    
+                    }, 100);
                 }
         
                 else {
@@ -165,6 +188,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     document.querySelector('.level'+missedChances).classList.add('show');
                     document.querySelector('.iceberg-piece'+missedChances).classList.add('hide');
                     missedLetters(item);
+
                    
                 }
         
@@ -200,10 +224,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     return this.substr(0,index)+item+ this.substr(index +1);
                     }
             }
+
+
+            function refresh(){
+
+                location.reload();
+            }
         
         
         }
-        
+
+
         
         
         function readData() {
