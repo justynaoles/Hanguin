@@ -33,15 +33,140 @@
    
 }
 
-.game-over {
+.end-game {
 
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
     z-index: 10;
-    background: rgba(255,2555,255,0.5);
+    background: rgba(0,0,26,0.9);
 }
 
+
+
+
+
+
+
+
+.end-box {
+
+    width: 80%;
+    min-height: 400px;
+    background-color: #fff;
+    border: 1px dotted orange;
+    border-radius: 25px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 4px dotted  #007bff;
+
+    .end-box-wrapper {
+
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        align-items:center;
+
+
+        @media (min-width: 768px) {
+            display: flex;
+            flex-direction: row;
+
+        }
+    
+    }
+    
+
+    img {
+        width: 70%;
+        margin-top: 25px;
+        order: 2;
+    }
+
+    h4 {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .water {
+        display: block;
+        width: 100%;
+        height: 50%;
+        border-radius: 0 0 25px 25px;
+        background-color: #80ced6;
+        background-image: linear-gradient(#d5f4e6,#80ced6,#007bff);
+        opacity: .5;
+        position: absolute;
+        bottom: 0;
+        z-index: 10;
+    }
+
+    .end-box-play {
+        width: 100%;
+        order: 1;
+    }
+
+
+    .btn {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+        z-index: 11;
+        position: relative;
+        padding: 15px 70px;
+        font-size: 20px;
+    }
+
+
+    @media (min-width: 768px) {
+
+        width: 700px;
+        min-height: 320px;
+        
+
+        img {
+            height: 250px;
+            margin-top: 50px;
+            order: 0;
+            width: auto;
+        }
+
+        h4 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .water {
+            height: 220px;
+        }
+
+        .end-box-play {
+            width: 100%;
+            order: 0;
+            align-self: flex-start;
+        }
+
+
+        .btn {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            z-index: 11;
+            padding: 15px 70px;
+            font-size: 20px;
+        }
+
+
+    }
+
+
+
+}
 
 
 
