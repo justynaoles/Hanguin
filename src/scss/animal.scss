@@ -18,7 +18,7 @@
     position: relative;
 }
 
-/*pingwinek*/
+//pinguin
 
 .pinguin {
 
@@ -32,7 +32,10 @@
     position: relative;
     margin-left:75px;
     z-index: 1;
+    animation-name: hop;
 }
+
+
 
 .head {
 
@@ -138,8 +141,27 @@
     top: 160px;
     transform: rotate(-50deg);
     z-index: 0;
-
 }
+
+
+
+
+@keyframes rotation-left-hand {
+
+    0%   {transform: rotate(-50deg); top:160px}
+    50%  {transform: rotate(50deg); top: 120px}
+    100% {transform: rotate(-50deg); top: 160px}
+   
+  }
+
+
+@keyframes rotation-right-hand {
+
+    0%   {transform: rotate( 50deg); top:160px}
+    50%  {transform: rotate( -50deg); top: 120px}
+    100% {transform: rotate(50deg); top: 160px}
+}
+
 
 .right-hand {
 
@@ -279,7 +301,7 @@
 
 
 .chart {
-    
+
     display: flex;
 
 }
@@ -333,3 +355,5 @@
 
     opacity: 0;
 }
+
+
