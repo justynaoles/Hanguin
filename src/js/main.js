@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         
                 else {
         
-                hiddenWord = hiddenWord + "_";
+                hiddenWord = hiddenWord + " ";
                 }
             }
         
@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             for ( let i=0; i<hiddenWord.length; i++) {
         
                 let div = document.createElement('div');
+                div.classList.add('password-letter');
         
                 div.append(hiddenWord[i]);
         
@@ -134,9 +135,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         
                     document.querySelector('.left-hand').style.animation='rotation-left-hand .5s infinite';
                     document.querySelector('.right-hand').style.animation='rotation-right-hand .5s infinite';
+                    document.querySelector('.end-box').classList.add('opacity');
                 
-                
-                }, 100);
+                }, 200);
               
 
                 document.querySelector('.btn').addEventListener('click', refresh);
@@ -147,6 +148,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 console.log('przegrales');
                 document.removeEventListener('keypress', guess);
                 document.body.insertBefore(gameOver,container);
+                setTimeout(function(){
+
+                    document.querySelector('.end-box').classList.add('opacity');
+
+                },200);
                 document.querySelector('.btn').addEventListener('click', refresh);
             }
         
