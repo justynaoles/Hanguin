@@ -11,6 +11,17 @@
     background-image: linear-gradient( #d5f4e6, #80ced6, #007bff);
     padding: 30px;
     width:100%;
+
+
+
+    @media (min-width: $small-media) and (min-height: 1000px) {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    }
+   
     @media (min-width: $small-media) {
 
         width: 90%;
@@ -28,8 +39,14 @@
 
 .wrapper {
 
-    display: flex;
+ 
     min-height: 500px;
+
+
+    @media (min-width: 1200px)  {
+
+        display: flex;
+    }
    
 }
 
@@ -61,6 +78,9 @@
     left: 50%;
     transform: translate(-50%,-50%);
     border: 4px dotted  #007bff;
+    opacity: 0;
+   
+    transition: opacity 1s ease-in-out;
 
     .end-box-wrapper {
 
@@ -166,6 +186,10 @@
 
 
 
+}
+
+.opacity {
+    opacity: 1;
 }
 
 
