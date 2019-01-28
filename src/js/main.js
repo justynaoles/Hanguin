@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       
         
         
-        document.addEventListener('keypress', guess);
+        document.addEventListener('keydown', guess);
 
         
         function guess(e) {
@@ -245,6 +245,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         
         function readData() {
             const apiURL = 'https://api.datamuse.com/words?rel_jjb=ocean&fbclid=IwAR26oGUUf8wnHiz-tw8yeUUJaK_-FcQ_2imW5fhcFTDLiVjqAhe8iIoJ1Gk';
+
+         
         
             $.ajax({
                 
