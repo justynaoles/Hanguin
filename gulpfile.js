@@ -3,7 +3,7 @@
 'use strict';
 
 let gulp = require('gulp');
-// let browserSync = require('browser-sync').create();
+let browserSync = require('browser-sync').create();
 let sass = require('gulp-sass');
 let concat = require('gulp-concat');
 let cleanCSS = require('gulp-clean-css');
@@ -23,15 +23,15 @@ gulp.task('hello', gulp.series((done) => {
 }));
 
 
-// gulp.task('browserSync', () => {
+gulp.task('browserSync', () => {
 
-//     browserSync.init({
-//       server: {
-//       baseDir: './'
-//       },
+    browserSync.init({
+      server: {
+      baseDir: './'
+      },
 
-//     })
-//   });
+    })
+  });
 
 
 gulp.task('sass', () => {
