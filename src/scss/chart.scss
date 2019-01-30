@@ -1,2 +1,105 @@
-@import 'variables';
-@import 'mixins';
+@import '_variables';
+
+.chart {
+
+    display: flex;
+    flex-direction: column;
+
+        @media (min-width: 1200px) {
+
+        flex-direction: row;
+
+        }
+    }
+
+
+.chart-title {
+
+    font-size: 45px;
+
+    @media (min-width: $medium-media) {
+        width: 50%;
+        }
+}
+
+.chart-levels {
+
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+    @media (min-width: 1200px) {
+        width: 50%;
+        display: block;
+        }
+}
+
+.level1, .level2, .level3, .level4, .level5 {
+
+    height: 70px;
+    width:70px;
+    transition: opacity 1s ease;
+    opacity: 0;
+}
+
+.level1 {
+    background-color: #82b74b;
+}
+
+.level2 {
+    background-color: #009900;
+}
+
+.level3 {
+    background-color: #ffcc5c;
+}
+
+.level4 {
+    background-color:#ff7b25;
+}
+
+.level5 {
+    background-color: $red;
+}
+
+.game-area {
+
+width: 100%;
+
+    @media (min-width: 1200px) {
+
+        width: 50%;
+        padding-left: 50px;
+    }
+}
+
+.instruction {
+
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    font-size: 25px;
+    line-height: 35px;
+    padding-bottom: 30px;
+    
+}
+
+.instruction-paragraph {
+
+    background-color: rgba(255,255,255,0.5);
+    padding:15px;
+    border-radius: 5px;
+    border: 4px dotted $orange;
+    text-align: center;
+
+    @media (min-width: 1200px) {
+
+        text-align: justify;
+    }
+}
+
+.command {
+    background-color: $orange;
+    padding: 4px;
+}
+

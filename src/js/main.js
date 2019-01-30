@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let hintsArray =[];
         let restWord =[];
         let missedChances=0;
+        const instruction = document.querySelector('.instruction');
         const iceberg = document.querySelectorAll('.ice');
         const quack = new Audio('src/audio/quack.wav');
         const win = new Audio('src/audio/win.flac');
@@ -21,16 +22,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const repeat = new Audio('src/audio/repeat.wav');
         let gameOver = document.createElement('div');
         gameOver.classList.add('end-game');
-        gameOver.innerHTML=" <div class='end-box'><div class='end-box-wrapper'><img src='src/img/gameover.PNG'><div class='end-box-play'><h4 class='end-box-header'>You melt iceberg!</h4><button class='btn'>Play again</button></div></div><div class='water'></div></div>";
+        gameOver.innerHTML=" <div class='end-box'><div class='end-box-wrapper'><img src='src/img/gameover.PNG'><div class='end-box-play'><h4 class='end-box-header'>You melt iceberg!</h4><p class='secret-word'>Secret word: "+word+"</p><button class='btn'>Play again</button></div></div><div class='water'></div></div>";
         let gameWin = document.createElement('div');
         gameWin.classList.add('end-game');
-        gameWin.innerHTML= "<div class='end-box'><div class='end-box-wrapper'><img src='src/img/win.PNG'><div class='end-box-play'><h4 class='end-box-header'>You saved cute pinguin!</h4><button class='btn'>Play again</button></div></div></div></div>"
+        gameWin.innerHTML= "<div class='end-box'><div class='end-box-wrapper'><img src='src/img/win.PNG'><div class='end-box-play'><h4 class='end-box-header'>You saved cute pinguin!</h4><p class='secret-word'>Secret word: "+word+"</p><button class='btn'>Play again</button></div></div></div></div>"
         const container = document.querySelector('.container');
        
+    
+        function hideMessage(element){
 
+            element.remove();
+        }
+      
 
-        console.log(word);
-        
         function hideWord(){
         
             for (let i=0; i < word.length; i++) {
@@ -38,8 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if(i%3 == 0) {
         
                 hiddenWord = hiddenWord + word[i];
-                hintsArray.push(word[i]);
-                
+                hintsArray.push(word[i]); 
             
                 }
         
@@ -72,11 +75,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 password.appendChild(div);
                 
             }
+
+
+            document.addEventListener('keyup', guess);
+            $(document).on("click",function(){
+    
+                $('.dummy').focus();
+    
+            });
+            $('.dummy').focus();
         
         }
         
         displayHiddenWord();
-
 
         // dodanie do "correct" podpowiedzi
 
@@ -89,25 +100,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
                  }
             
         
-        document.addEventListener('keydown', guess);
-        $(document).on("click",function(){
-
-            $('.dummy').focus();
-
-        });
-        $('.dummy').focus();
-    
-
-        
         function guess(e) {
+       
+        resetAnimation();
+        hideMessage(instruction);
 
-          resetAnimation();
-
-            let key;
-            let correctAnswer = false;
-            let includedInHints = false;
-
-
+        let key;
+        let correctAnswer = false;
+            
             if (e.keyCode == 229)  {
 
                 key =$('.dummy').val().slice( $('.dummy').val().length-1,$('.dummy').val().length ).toUpperCase().charCodeAt(0)
@@ -118,16 +118,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 key = e.keyCode;
             }
              
-
-    
-
-        
             if ((key >= 65 && key <= 90) || (key >= 97 && key <= 122))      {
 
                 let keyChart = String.fromCharCode(key).toUpperCase();
+
                 
-        
-               for (let i = 0; i<word.length; i++) {
+                for (let i = 0; i<word.length; i++) {
         
                     if (word.charAt(i) == keyChart ) {
         
@@ -136,64 +132,46 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         correctAnswer = true;
                     }
 
-                    if (hintsArray.indexOf(keyChart) != -1) {
-
-                        includedInHints = true;
-                    }
                }
 
-               console.log(includedInHints);
-        
         
                 if (correctAnswer) {
 
-
                     checkCorrectArray(correctArray, keyChart);
                     displayHiddenWord();
-        
                 }
         
                 else {
 
-        
                     checkErrorArray(errorsArray, keyChart);
                 }
-           
             }
     
-            else {
-
-                alert('only letters please');
-            }
-        
             if (hiddenWord==word) {
 
-                document.removeEventListener('keypress', guess);
+                document.removeEventListener('keyup', guess);
                 win.play();
                 document.body.insertBefore(gameWin,container);
              
-
                 setTimeout(function(){ 
                         
                     document.querySelector('.left-hand').style.animation='rotation-left-hand .5s infinite';
                     document.querySelector('.right-hand').style.animation='rotation-right-hand .5s infinite';
-                    document.querySelector('.end-box').classList.add('opacity');
+                    document.querySelector('.end-box').classList.add('show');
                 
                 }, 200);
               
-
                 document.querySelector('.btn').addEventListener('click', refresh);
-
             }
         
             if (missedChances > iceberg.length -1 ) {
-                console.log('przegrales');
-                document.removeEventListener('keypress', guess);
+
+                document.removeEventListener('keyup', guess);
                 lose.play();
                 document.body.insertBefore(gameOver,container);
                 setTimeout(function(){
 
-                    document.querySelector('.end-box').classList.add('opacity');
+                    document.querySelector('.end-box').classList.add('show');
 
                 },200);
                 document.querySelector('.btn').addEventListener('click', refresh);
@@ -202,9 +180,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
         
             function checkCorrectArray(array, item) {
-
-               
-                    
+  
                 if( array.indexOf(item) <0) {
 
                     array.push(item);
@@ -223,16 +199,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     repeat.play();
                 }
 
-
             }
 
 
-
-
-        
             function checkErrorArray(array,item) {
         
-
                 if(array.indexOf(item) < 0) {
         
                     array.push(item);
@@ -240,15 +211,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     missedChances++;
                     document.querySelector('.level'+missedChances).classList.add('show');
                     document.querySelector('.iceberg-piece'+missedChances).classList.add('hide');
-                    missedLetters(item);
-
-                   
+                    missedLetters(item);   
                 }
         
                 else {
                     repeat.play();
                 }
-        
         
             }
         
@@ -268,8 +236,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 
             }
         
-    
-        
             String.prototype.showLetter = function (index, item) {
         
                 if (index > this.length -1) this.toString();
@@ -284,22 +250,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 location.reload();
             }
         
-        
         }
 
-     
     
-      
-        
         
         function readData() {
             // const apiURL = 'https://api.datamuse.com/words?rel_jjb=ocean&fbclid=IwAR26oGUUf8wnHiz-tw8yeUUJaK_-FcQ_2imW5fhcFTDLiVjqAhe8iIoJ1Gk';
 
-
             const apiURL = 'src/json/words.json';
-
          
-        
             $.ajax({
                 
                 type: 'GET',
@@ -318,8 +277,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
         
         readData();
-
-
 
 });
 
